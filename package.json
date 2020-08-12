@@ -1,0 +1,27 @@
+{
+    "name": "node.js_complete_guide",
+    "version": "1.0.0",
+    "description": "complete node.js guide",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon app.js",
+        "start-server": "node app.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/xnslx/node.js-practice.git"
+    },
+    "author": "Xian",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/xnslx/node.js-practice/issues"
+    },
+    "homepage": "https://github.com/xnslx/node.js-practice#readme",
+    "devDependencies": {
+        "nodemon": "^2.0.4"
+    },
+    "dependencies": {
+        "express": "^4.17.1"
+    }
+}
