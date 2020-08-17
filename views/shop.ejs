@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= pageTitle %>
+    </title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+    <header class="main-header">
+        <nav class="main-header_nav">
+            <ul class="main-header_item-list">
+                <li class="main-header_item"><a class="active" href="/">Shop</a></li>
+                <li class="main-header_item"><a href="/admin/add-product">Add Product</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <% if(prods.length>0) { %>
+            <div class="grid">
+                <% for(let product in prods) { %>
+                    <article class="card product-item">
+                        <header class="card_header">
+                            <h1 class="product_title">
+                                <%= product.title %>
+                            </h1>
+                        </header>
+                        <div class="card_image">
+                            <img src="" alt="A book" />
+                        </div>
+                        <div class="card_content">
+                            <h2 class="product_price">$19.99</h2>
+                            <p class="product_discription">A very interesting book</p>
+                        </div>
+                        <div class="card_actions">
+                            <button class="btn">Add to cart</button>
+                        </div>
+                    </article>
+                    <% } %>
+            </div>
+            <% } else { %>
+                <h1>No product found!</h1>
+                <% } %>
+    </main>
+</body>
+
+</html>
