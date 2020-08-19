@@ -40,7 +40,6 @@ main {
 }
 
 .main-header_item a:hover,
-.main-header_item a:active,
-.main-header_item a:active {
+.main-header_item a.active {
     color: purple;
 }
