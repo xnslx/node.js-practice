@@ -3,4 +3,36 @@
 
     <body>
         <%- include('../includes/navigation.ejs')%>
+            <main>
+                <% if(prods.length>0) { %>
+                    <div class="grid">
+                        <% for(let product of prods) { %>
+                            <article class="card product-item">
+                                <header class="card_header">
+                                    <h1 class="product_title">
+                                        <%= product.title %>
+                                    </h1>
+                                </header>
+                                <div class="card_image">
+                                    <img src="<%= product.imageUrl %>" alt="<%= product.title %>" />
+                                </div>
+                                <div class="card_content">
+                                    <h2 class="product_price">$
+                                        <%= product.price %>
+                                    </h2>
+                                    <p class="product_discription">
+                                        <%= product.description %>
+                                    </p>
+                                </div>
+                                <div class="card_actions">
+                                    <button class="btn">Edit</button>
+                                    <button class="btn">Delete</button>
+                                </div>
+                            </article>
+                            <% } %>
+                    </div>
+                    <% } else { %>
+                        <h1>No product found!</h1>
+                        <% } %>
+            </main>
             <%- include('../includes/end.ejs')%>
