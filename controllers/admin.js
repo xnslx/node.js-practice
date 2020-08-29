@@ -22,9 +22,9 @@ exports.postAddProduct = (req, res, next) => {
 
 exports.getEditProduct = (req, res, next) => {
     // res.sendFile(path.join(rootDir, 'views', 'add-product.html'))
-    console.log(req.query)
+    // console.log(req.query)
     const editMode = req.query.edit;
-    console.log('editMode', editMode)
+    // console.log('editMode', editMode)
     if (!editMode) {
         return res.redirect('/')
     }
@@ -43,13 +43,13 @@ exports.getEditProduct = (req, res, next) => {
 }
 
 exports.postEditProduct = (req, res, next) => {
-    console.log(req.body)
+    console.log('req.body', req.body)
     const prodId = req.body.productId;
     const updatedTitle = req.body.title;
     const updatedPrice = req.body.price;
     const updatedImageUrl = req.body.imageUrl;
     const updatedDesc = req.body.description;
-    const updatedProduct = new Product(prodId, updatedTitle, updatedPrice, updatedImageUrl, updatedDesc);
+    const updatedProduct = new Product(prodId, updatedTitle, updatedImageUrl, updatedDesc, updatedPrice);
     updatedProduct.save();
     res.redirect('/admin/products')
 }
