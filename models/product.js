@@ -6,7 +6,7 @@ const p = path.join(path.dirname(process.mainModule.filename), 'data', 'products
 
 const getProductsFromFile = cb => {
     fs.readFile(p, (err, fileContent) => {
-        console.log('fileContent', fileContent.toString())
+        // console.log('fileContent', fileContent.toString())
         if (err) {
             cb([]);
         } else {
