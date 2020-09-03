@@ -34,6 +34,7 @@ module.exports = class Cart {
     }
 
     static deleteProduct(id, productPrice) {
+        console.log('fileContent', fileContent)
         fs.readFile(p, (err, fileContent) => {
             if (err) {
                 return;
