@@ -16,14 +16,13 @@ app.set('views', 'views')
 const adminRoutes = require('./routes/admin')
 const shopRoutes = require('./routes/shop');
 
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use((req, res, next) => {
     User.findById('5f545b2e88b0a337a4469f08')
         .then(user => {
-            console.log('user', user)
             req.user = new User(user.name, user.email, user.cart, user._id);
             next();
         })
@@ -38,6 +37,5 @@ app.use(shopRoutes)
 app.use(errorController.get404)
 
 mongoConnect(() => {
-
     app.listen(3000)
 })

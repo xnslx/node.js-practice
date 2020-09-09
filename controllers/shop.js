@@ -77,26 +77,39 @@ exports.getIndex = (req, res, next) => {
         })
 }
 
+// exports.getCart = (req, res, next) => {
+//     Cart.getCart(cart => {
+//         Product.fetchAll(products => {
+//             // console.log(products)
+//             const cartProducts = [];
+//             for (product of products) {
+//                 const cartProductData = cart.products.find(prod => prod.id === product.id)
+//                     // console.log('cartProductData', cartProductData)
+//                 if (cartProductData) {
+//                     cartProducts.push({ productData: product, qty: cartProductData.qty })
+//                 }
+//             }
+//             // console.log('cartProducts', cartProducts)
+//             res.render('shop/cart', {
+//                 path: '/cart',
+//                 pageTitle: 'Your Cart',
+//                 products: cartProducts
+//             })
+//         })
+//     })
+// }
+
 exports.getCart = (req, res, next) => {
-    Cart.getCart(cart => {
-        Product.fetchAll(products => {
-            // console.log(products)
-            const cartProducts = [];
-            for (product of products) {
-                const cartProductData = cart.products.find(prod => prod.id === product.id)
-                    // console.log('cartProductData', cartProductData)
-                if (cartProductData) {
-                    cartProducts.push({ productData: product, qty: cartProductData.qty })
-                }
-            }
-            // console.log('cartProducts', cartProducts)
+    req.user
+        .getCart()
+        .then(products => {
             res.render('shop/cart', {
                 path: '/cart',
                 pageTitle: 'Your Cart',
-                products: cartProducts
+                products: products
             })
         })
-    })
+        .catch(err => console.log(err))
 }
 
 // exports.postCart = (req, res, next) => {
@@ -110,7 +123,7 @@ exports.getCart = (req, res, next) => {
 // };
 
 exports.postCart = (req, res, next) => {
-    console.log('req', req)
+    // console.log('req', req)
     const prodId = req.body.productId;
     Product.findById(prodId)
         .then(product => {
