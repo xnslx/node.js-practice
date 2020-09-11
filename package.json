@@ -24,6 +24,7 @@
         "express": "^4.17.1",
         "express-handlebars": "^5.1.0",
         "mongodb": "^3.6.1",
+        "mongoose": "^5.10.4",
         "pug": "^3.0.0"
     },
     "devDependencies": {
