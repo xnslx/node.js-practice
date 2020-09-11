@@ -109,6 +109,7 @@ exports.getCart = (req, res, next) => {
                 products: products
             })
         })
+    console.log('getCart', getCart())
         .catch(err => console.log(err))
 }
 
