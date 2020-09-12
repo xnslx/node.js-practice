@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 
 const errorController = require('./controllers/error')
 
-// const User = require('./models/user');
+const User = require('./models/user');
 
 const app = express();
 
@@ -21,16 +21,17 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(express.static(path.join(__dirname, 'public')))
 
-// app.use((req, res, next) => {
-//     User.findById('5f59b2d1ab9010031ed82866')
-//         .then(user => {
-//             req.user = new User(user.name, user.email, user.cart, user._id);
-//             next();
-//         })
-//         .catch(err => {
-//             console.log(err)
-//         })
-// })
+app.use((req, res, next) => {
+    User.findById('5f5c4296066690c12b19c526')
+        .then(user => {
+            console.log('user', user)
+            req.user = user;
+            next();
+        })
+        .catch(err => {
+            console.log(err)
+        })
+})
 
 app.use('/admin', adminRoutes)
 app.use(shopRoutes)
@@ -40,6 +41,18 @@ app.use(errorController.get404)
 mongoose
     .connect('mongodb+srv://Xian:xian123456@cluster0.a2ngi.mongodb.net/shop?retryWrites=true&w=majority')
     .then(result => {
+        User.findOne().then(user => {
+            if (!user) {
+                const user = new User({
+                    name: 'Xian',
+                    email: 'xian@test.com',
+                    cart: {
+                        items: []
+                    }
+                });
+                user.save()
+            }
+        })
         app.listen(3000)
     })
     .catch(err => {
