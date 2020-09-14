@@ -124,7 +124,7 @@ exports.getCart = (req, res, next) => {
         .execPopulate()
         .then(user => {
             const products = user.cart.items;
-            console.log('products', products)
+            // console.log('products', products)
             res.render('shop/cart', {
                 path: '/cart',
                 pageTitle: 'Your Cart',
@@ -164,13 +164,26 @@ exports.postCart = (req, res, next) => {
         })
 }
 
+// exports.postCartDeleteProduct = (req, res, next) => {
+//     const prodId = req.body.productId;
+//     // console.log(prodId)
+//     Product.findById(prodId, product => {
+//         Cart.deleteProduct(prodId, product.price);
+//         res.redirect('/cart');
+//     })
+// }
+
 exports.postCartDeleteProduct = (req, res, next) => {
     const prodId = req.body.productId;
-    // console.log(prodId)
-    Product.findById(prodId, product => {
-        Cart.deleteProduct(prodId, product.price);
-        res.redirect('/cart');
-    })
+    console.log('prodId', prodId)
+    req.user
+        .removeFromCart(prodId)
+        .then(result => {
+            res.redirect('/cart')
+        })
+        .catch(err => {
+            console.log(err)
+        })
 }
 
 exports.getOrders = (req, res, next) => {
