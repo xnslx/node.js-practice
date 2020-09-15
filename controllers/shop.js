@@ -1,6 +1,8 @@
 const Product = require('../models/product');
 
-const Cart = require('../models/cart');
+// const Cart = require('../models/cart');
+// const User = require('../models/user');
+// const { ObjectId } = require('mongodb');
 
 // exports.getProducts = (req, res, next) => {
 //     Product.fetchAll(products => {
@@ -151,8 +153,8 @@ exports.postCart = (req, res, next) => {
     const prodId = req.body.productId;
     Product.findById(prodId)
         .then(product => {
-            console.log('shop.js', product)
-            console.log('req.user', req.user)
+            // console.log('shop.js', product)
+            // console.log('req.user', req.user)
             return req.user.addToCart(product);
         })
         .then(result => {
@@ -185,6 +187,21 @@ exports.postCartDeleteProduct = (req, res, next) => {
             console.log(err)
         })
 }
+
+// exports.postCartDeleteProduct = (req, res, next) => {
+//     const prodId = req.body.productId;
+//     console.log('prodId', prodId)
+//     User
+//         .findByIdAndRemove(prodId)
+//         .then(result => {
+//             res.redirect('/cart')
+//         })
+//         .catch(err => {
+//             console.log(err)
+//         })
+// }
+
+
 
 exports.getOrders = (req, res, next) => {
     res.render('shop/orders', {
