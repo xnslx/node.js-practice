@@ -177,7 +177,7 @@ exports.postCart = (req, res, next) => {
 
 exports.postCartDeleteProduct = (req, res, next) => {
     const prodId = req.body.productId;
-    console.log('prodId', prodId)
+    // console.log('prodId', prodId)
     req.user
         .removeFromCart(prodId)
         .then(result => {
@@ -230,10 +230,15 @@ exports.postOrders = (req, res, next) => {
 }
 
 exports.getOrders = (req, res, next) => {
-    res.render('shop/orders', {
-        path: '/orders',
-        pageTitle: 'Your Orders'
-    })
+    Order.find({ 'user.userId': req.user._id })
+        .then(orders => {
+            console.log('orders', orders)
+            res.render('shop/orders', {
+                path: '/orders',
+                pageTitle: 'Your Orders',
+                orders: orders
+            })
+        })
 }
 
 exports.getCheckOut = (req, res, next) => {

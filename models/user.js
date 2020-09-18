@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { update } = require('./product');
 
 const Schema = mongoose.Schema;
 
@@ -51,13 +52,14 @@ userSchema.methods.addToCart = function(product) {
 // }
 
 userSchema.methods.removeFromCart = function(prodId) {
+    console.log('prodId', prodId)
     const needToBeDeletedProductIndex = this.cart.items.findIndex(item => {
         return item.productId.toString() === prodId.toString()
     });
-    const updatedCartItems = this.cart.items.splice(needToBeDeletedProductIndex, 1)
-    console.log('updatedCartItems', updatedCartItems)
-    this.cart.items = updatedCartItems;
-    return this.save()
+    console.log('needToBeDeletedProductIndex', needToBeDeletedProductIndex)
+    this.cart.items.splice(needToBeDeletedProductIndex, 1)
+    console.log('this.cart.items', this.cart.items)
+    return this.save(this.cart.items)
 }
 
 
