@@ -19,6 +19,7 @@
     },
     "homepage": "https://github.com/xnslx/node.js-practice#readme",
     "dependencies": {
+        "bcryptjs": "^2.4.3",
         "body-parser": "^1.19.0",
         "connect-mongodb-session": "^2.4.1",
         "ejs": "^3.1.3",
