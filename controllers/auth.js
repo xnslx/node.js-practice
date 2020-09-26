@@ -68,12 +68,12 @@ exports.postSignup = (req, res, next) => {
             return bcrypt
                 .hash(password, 12)
                 .then(hashedPassword => {
-                    const newUser = new User({
+                    const user = new User({
                         email: email,
                         password: hashedPassword,
                         cart: { items: [] }
                     })
-                    return newUser.save();
+                    return user.save();
                 })
                 .then(result => {
                     res.redirect('/login')

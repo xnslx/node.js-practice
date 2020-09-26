@@ -1,6 +1,6 @@
 <%- include('../includes/head.ejs') %>
     <link rel="stylesheet" href="/css/product.css">
-    </head>
+</head>
 
     <body>
         <%- include('../includes/navigation.ejs') %>
@@ -29,13 +29,13 @@
                                     <a href="/products/<%= product._id %>" class="btn">Details</a>
                                     <% if(isAuthenticated){ %>
                                         <%- include('../includes/add-to-cart.ejs',{product:product})%>
-                                            <% } %>
+                                    <% } %>
                                 </div>
                             </article>
-                            <% } %>
-                    </div>
-                    <% } else { %>
-                        <h1>No product found!</h1>
                         <% } %>
+                    </div>
+                <% } else { %>
+                    <h1>No product found!</h1>
+                <% } %>
             </main>
-            <%- include('../includes/end.ejs') %>
+<%- include('../includes/end.ejs') %>

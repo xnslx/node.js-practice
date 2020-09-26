@@ -33,13 +33,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(session({ secret: 'my secret', resave: false, saveUninitialized: false, store: store }))
-
 app.use(csrfProtection);
 
 app.use((req, res, next) => {
     console.log('app.js', req.session.user)
     if (!req.session.user) {
-        return next()
+        return next();
     }
     User.findById(req.session.user._id)
         .then(user => {

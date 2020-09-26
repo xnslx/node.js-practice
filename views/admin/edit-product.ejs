@@ -1,6 +1,6 @@
 <%- include('../includes/head.ejs')%>
     <link rel="stylesheet" href="/css/product.css">
-    </head>
+</head>
 
     <body>
         <%- include('../includes/navigation.ejs')%>
@@ -24,9 +24,9 @@
                     </div>
                     <% if(editing) {%>
                         <input type="hidden" value="<%= product._id%>" name="productId">
-                        <% }%>
-                            <input type="hidden" name="_csrf" value="<%= csrfToken %> ">
-                            <button class="btn" type="submit"><% if(editing) {%> Update Product <%} else {%>Add product<%}%></button>
+                    <% } %>
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %> ">
+                    <button class="btn" type="submit"><% if(editing) {%> Update Product <%} else {%>Add product<%}%></button>
                 </form>
             </main>
             <%- include('../includes/end.ejs')%>

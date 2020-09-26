@@ -6,25 +6,24 @@
             <main>
                 <% if(orders.length<=0) { %>
                     <h1>No Orders! Please add some products!</h1>
-                    <% } else { %>
-                        <ul>
-                            <% orders.forEach(order => { %>
-                                <li>
-                                    <h3>
-                                        Order #
-                                        <%= order._id %>
-                                    </h3>
-                                </li>
-                                <li>
-                                    <% order.products.forEach( product => { %>
-                                        <h4>
-                                            <%= product.product.title %>
-                                        </h4>
-                                        <% }) %>
-                                </li>
-                                <% })%>
-                        </ul>
-                        <% } %>
-
+                <% } else { %>
+                    <ul>
+                        <% orders.forEach(order => { %>
+                            <li>
+                                <h3>
+                                    Order #
+                                    <%= order._id %>
+                                </h3>
+                            </li>
+                            <li>
+                                <% order.products.forEach( product => { %>
+                                    <h4>
+                                        <%= product.product.title %>
+                                    </h4>
+                                    <% }) %>
+                            </li>
+                            <% })%>
+                    </ul>
+                <% } %>
             </main>
             <%- include('../includes/end.ejs')%>

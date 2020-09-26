@@ -1,5 +1,4 @@
 const Product = require('../models/product');
-const { populate } = require('../models/product');
 
 
 exports.getAddProduct = (req, res, next) => {
@@ -26,7 +25,7 @@ exports.postAddProduct = (req, res, next) => {
     product
         .save()
         .then(result => {
-            // console.log('create product')
+            console.log('create product')
             res.redirect('/admin/products');
         })
         .catch(err => {
@@ -124,6 +123,22 @@ exports.postEditProduct = (req, res, next) => {
 //     Product.deleteProductById(prodId)
 //     res.redirect('/admin/products')
 // }
+exports.getProducts = (req, res, next) => {
+    Product.find()
+        // .populate('userId')
+        .then(products => {
+            console.log(products)
+            res.render('admin/products', {
+                prods: products,
+                pageTitle: 'Admin Products',
+                path: '/admin/products',
+                isAuthenticated: req.session.isLoggedIn
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
 
 exports.postDeleteProduct = (req, res, next) => {
     const prodId = req.body.productId;
@@ -148,20 +163,3 @@ exports.postDeleteProduct = (req, res, next) => {
 //         })
 //     });
 // }
-
-exports.getProducts = (req, res, next) => {
-    Product.find()
-        // .populate('userId')
-        .then(products => {
-            console.log(products)
-            res.render('admin/products', {
-                prods: products,
-                pageTitle: 'Admin Products',
-                path: '/admin/products',
-                isAuthenticated: req.session.isLoggedIn
-            })
-        })
-        .catch(err => {
-            console.log(err)
-        })
-}

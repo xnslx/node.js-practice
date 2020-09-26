@@ -9,7 +9,7 @@
                 <li class="main-header_item"><a class="<%= path === '/admin/add-product' ? 'active' : ''%>" href="/admin/add-product">Add Product</a></li>
                 <li class="main-header_item"><a class="<%= path === '/admin/products' ? 'active' : ''%>" href="/admin/products">Admin Product</a>
                 </li>
-                <% } %>
+            <% } %>
         </ul>
         <ul class="main-header_item-list">
             <% if(!isAuthenticated) { %>
@@ -19,14 +19,14 @@
                 <li class="main-header_item">
                     <a class="<%= path === '/login' ? 'active' : ''%>" href=" /signup ">Signup</a>
                 </li>
-                <% } else { %>
+            <% } else { %>
                     <li>
                         <form action="/logout" method="post">
-                            <input type="hidden" name="_csrf" value="<%= csrfToken %> ">
+                            <input type="hidden" name="_csrf" value="<%=csrfToken %> ">
                             <button type="submit">Logout</button>
                         </form>
                     </li>
-                    <% } %>
+            <% } %>
         </ul>
     </nav>
 </header>
