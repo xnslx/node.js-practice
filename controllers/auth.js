@@ -5,7 +5,7 @@ const User = require('../models/user');
 
 
 exports.getLogin = (req, res, next) => {
-    // console.log(req.session)
+    console.log('req.session', req.session)
     res.render('auth/login', {
         path: '/login',
         pageTitle: 'Login',
@@ -25,6 +25,8 @@ exports.postLogin = (req, res, next) => {
     // res.setHeader('Set-Cookie', 'loggedIn=true; Max-Age=10')
     const email = req.body.email;
     const password = req.body.password;
+    // console.log(email)
+    // console.log(password)
     User.findOne({ email: email })
         .then(user => {
             if (!user) {

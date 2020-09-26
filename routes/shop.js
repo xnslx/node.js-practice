@@ -23,6 +23,6 @@ router.get('/orders', isAuth, shopController.getOrders)
 
 router.post('/create-order', isAuth, shopController.postOrders)
 
-// router.get('/checkout', shopController.getCheckOut)
+router.get('/checkout', shopController.getCheckOut)
 
 module.exports = router;

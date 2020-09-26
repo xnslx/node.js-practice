@@ -37,11 +37,11 @@ app.use(session({ secret: 'my secret', resave: false, saveUninitialized: false, 
 app.use(csrfProtection);
 
 app.use((req, res, next) => {
+    console.log('app.js', req.session.user)
     if (!req.session.user) {
         return next()
     }
     User.findById(req.session.user._id)
-    console.log('req.session', req.session)
         .then(user => {
             req.user = user;
             next();
@@ -55,6 +55,7 @@ app.use((req, res, next) => {
     res.locals.isAuthenticated = req.session.isLoggedIn;
     res.locals.csrfToken = req.csrfToken();
     console.log('res.locals.csrfToken', res.locals.csrfToken)
+    console.log('res.locals.isAuthenticated', res.locals.isAuthenticated)
     next()
 })
 
