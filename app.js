@@ -12,7 +12,7 @@ const errorController = require('./controllers/error')
 
 const User = require('./models/user');
 
-const MONGODB_URL = 'mongodb+srv://Xian:xian123456@cluster0.a2ngi.mongodb.net/shop?retryWrites=true&w=majority'
+const MONGODB_URL = 'mongodb+srv://Xian:xian123456@cluster0.a2ngi.mongodb.net/shop'
 
 const app = express();
 const store = new MongoDBStore({
@@ -32,11 +32,18 @@ const authRoutes = require('./routes/auth');
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(express.static(path.join(__dirname, 'public')))
-app.use(session({ secret: 'my secret', resave: false, saveUninitialized: false, store: store }))
+app.use(
+    session({
+        secret: 'my secret',
+        resave: false,
+        saveUninitialized: false,
+        store: store
+    })
+)
 app.use(csrfProtection);
 
 app.use((req, res, next) => {
-    console.log('app.js', req.session.user)
+    // console.log('app.js', req.session.user)
     if (!req.session.user) {
         return next();
     }
@@ -55,7 +62,7 @@ app.use((req, res, next) => {
     res.locals.csrfToken = req.csrfToken();
     console.log('res.locals.csrfToken', res.locals.csrfToken)
     console.log('res.locals.isAuthenticated', res.locals.isAuthenticated)
-    next()
+    next();
 })
 
 
