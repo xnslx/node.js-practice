@@ -4,6 +4,37 @@
     margin: auto;
 }
 
+.product-item {
+    width: 20rem;
+    max-width: 95%;
+    margin: 1rem;
+}
+
+.product__title {
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.product__price {
+    text-align: center;
+    color: #4d4d4d;
+    margin-bottom: 0.5rem;
+}
+
+.product__description {
+    text-align: center;
+}
+
+.card_image {
+    width: 80vw;
+    height: auto;
+}
+
+.card_image img {
+    width: 360px;
+    height: auto;
+}
+
 .form-control {
     margin: 1rem 0;
 }

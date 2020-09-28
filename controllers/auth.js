@@ -5,18 +5,18 @@ const User = require('../models/user');
 
 
 exports.getLogin = (req, res, next) => {
+    // console.log('req.flash', req.flash())
     res.render('auth/login', {
         path: '/login',
         pageTitle: 'Login',
-        isAuthenticated: false
-    })
-}
+        errorMessage: req.flash('error')
+    });
+};
 
 exports.getSignup = (req, res, next) => {
     res.render('auth/signup', {
         path: '/signup',
-        pageTitle: 'Signup',
-        isAuthenticated: false
+        pageTitle: 'Signup'
     });
 };
 
@@ -24,12 +24,13 @@ exports.postLogin = (req, res, next) => {
     // res.setHeader('Set-Cookie', 'loggedIn=true; Max-Age=10')
     const email = req.body.email;
     const password = req.body.password;
-    // console.log(email)
-    // console.log(password)
     User.findOne({ email: email })
         .then(user => {
             if (!user) {
-                return res.redirect('/login')
+                req.flash('error', 'Invalid email or password');
+                return req.session.save(err => {
+                    res.redirect('/login');
+                })
             }
             bcrypt.compare(password, user.password)
                 .then(doMatch => {
