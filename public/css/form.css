@@ -21,3 +21,19 @@
 .form-control textarea:focus {
     outline-color: #00695c;
 }
+
+.user-message {
+    margin: auto;
+    width: 60%;
+    border: 1px solid rgb(10, 10, 214);
+    padding: 0.5rem;
+    border-radius: 3px;
+    background: rgb(101, 101, 216);
+    text-align: center;
+}
+
+.user-message--error {
+    border-color: red;
+    background: rgb(236, 174, 174);
+    color: red;
+}

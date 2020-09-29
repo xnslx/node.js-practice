@@ -1,22 +1,40 @@
 const bcrypt = require('bcryptjs');
-
+const nodemailer = require('nodemailer');
+const sendgridTransport = require('nodemailer-sendgrid-transport');
 const User = require('../models/user');
 
-
+const transporter = nodemailer.createTransport(sendgridTransport({
+    auth: {
+        api_key: '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'
+    }
+}))
 
 exports.getLogin = (req, res, next) => {
     // console.log('req.flash', req.flash())
+    let message = req.flash('error');
+    if (message.length > 0) {
+        message = message[0];
+    } else {
+        message = null;
+    }
     res.render('auth/login', {
         path: '/login',
         pageTitle: 'Login',
-        errorMessage: req.flash('error')
+        errorMessage: message
     });
 };
 
 exports.getSignup = (req, res, next) => {
+    let message = req.flash('error');
+    if (message.length > 0) {
+        message = message[0];
+    } else {
+        message = null;
+    }
     res.render('auth/signup', {
         path: '/signup',
-        pageTitle: 'Signup'
+        pageTitle: 'Signup',
+        errorMessage: message
     });
 };
 
@@ -42,6 +60,7 @@ exports.postLogin = (req, res, next) => {
                             res.redirect('/')
                         })
                     }
+                    req.flash('error', 'Invalid email or password');
                     res.redirect('/login')
                 })
                 .catch(err => {
@@ -62,6 +81,7 @@ exports.postSignup = (req, res, next) => {
     User.findOne({ email: email })
         .then(userDoc => {
             if (userDoc) {
+                req.flash('error', 'This email has been used.');
                 return res.redirect('/signup')
             }
             return bcrypt
@@ -76,7 +96,16 @@ exports.postSignup = (req, res, next) => {
                 })
                 .then(result => {
                     res.redirect('/login')
-                });
+                    return transporter.sendMail({
+                        to: email,
+                        from: 'shop@node-complete.com',
+                        subject: 'Signup succeeded!',
+                        html: '<h1>You successfully signed up!</h1>'
+                    })
+                })
+                .catch(err => {
+                    console.log(err)
+                })
         })
         .catch(err => {
             console.log(err)
