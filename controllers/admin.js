@@ -122,7 +122,7 @@ exports.postEditProduct = (req, res, next) => {
 //     res.redirect('/admin/products')
 // }
 exports.getProducts = (req, res, next) => {
-    Product.find()
+    Product.find({ userId: req.user._id })
         // .populate('userId')
         .then(products => {
             console.log(products)
