@@ -15,7 +15,7 @@ router.get('/products', isAuth, adminController.getProducts)
 
 router.post('/add-product', [
     body('title')
-    .isAlphanumeric()
+    .isString()
     .isLength({ min: 3 })
     .trim(),
     body('imageUrl')
