@@ -72,9 +72,15 @@ exports.postLogin = (req, res, next) => {
     User.findOne({ email: email })
         .then(user => {
             if (!user) {
-                req.flash('error', 'Invalid email or password');
-                return req.session.save(err => {
-                    res.redirect('/login');
+                return res.status(422).render('auth/login', {
+                    path: '/login',
+                    pageTitle: 'Login',
+                    errorMessage: error.array()[0].msg,
+                    oldInput: {
+                        email: email,
+                        password: password
+                    },
+                    validationErrors: error.array()
                 })
             }
             bcrypt.compare(password, user.password)
@@ -87,8 +93,16 @@ exports.postLogin = (req, res, next) => {
                             res.redirect('/')
                         })
                     }
-                    req.flash('error', 'Invalid email or password');
-                    res.redirect('/login')
+                    return res.status(422).render('auth/login', {
+                        path: '/login',
+                        pageTitle: 'Login',
+                        errorMessage: error.array()[0].msg,
+                        oldInput: {
+                            email: email,
+                            password: password
+                        },
+                        validationErrors: []
+                    })
                 })
                 .catch(err => {
                     console.log(err);
@@ -171,6 +185,7 @@ exports.postReset = (req, res, next) => {
             .then(user => {
                 if (!user) {
                     req.flash('error', 'No account with that email found.')
+                    return res.redirect('/reset')
                 }
                 user.resetToken = token;
                 user.resetTokenExpiration = Date.now() + 3600000;
