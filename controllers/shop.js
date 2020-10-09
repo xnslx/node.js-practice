@@ -5,7 +5,6 @@ const PDFDocument = require('pdfkit');
 
 const Product = require('../models/product');
 const Order = require('../models/order');
-const order = require('../models/order');
 // const Cart = require('../models/cart');
 // const User = require('../models/user');
 // const { ObjectId } = require('mongodb');
@@ -257,20 +256,22 @@ exports.getOrders = (req, res, next) => {
 
 exports.getInvoice = (req, res, next) => {
     const orderId = req.params.orderId;
-    Order.findById(orderId).then(order => {
+    console.log('orderId', orderId)
+    Order.findById(orderId)
+        .then(order => {
             if (!order) {
-                return next();
+                return next(new Error('No order found!'));
             }
-            if (order.user.userId.toString() !== req.user_id.toString()) {
-                return next()
+            if (order.user.userId.toString() !== req.user._id.toString()) {
+                return next(new Error('Unauthorized'))
             }
             const invoiceName = 'invoice-' + orderId + '.pdf';
             const invoicePath = path.join('data', 'invoices', invoiceName)
 
             const pdfDoc = new PDFDocument();
             res.setHeader('Content-Type', 'application/pdf');
-            res.setHeader('Content-Disposition', 'inline; filename=" ' + invoiceName + '"')
-            pdfDoc.pipe(fs.createReadStream(invoicePath));
+            res.setHeader('Content-Disposition', 'attachment; filename=" ' + invoiceName + '"')
+            pdfDoc.pipe(fs.createWriteStream(invoicePath));
             pdfDoc.pipe(res);
             pdfDoc.fontSize(26).text('Invoice', {
                 underline: true
