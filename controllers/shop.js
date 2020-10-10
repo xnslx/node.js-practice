@@ -283,7 +283,7 @@ exports.getOrders = (req, res, next) => {
 
 exports.getInvoice = (req, res, next) => {
     const orderId = req.params.orderId;
-    console.log('orderId', orderId)
+    // console.log('orderId', orderId)
     Order.findById(orderId)
         .then(order => {
             if (!order) {
