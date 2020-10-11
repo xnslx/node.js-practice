@@ -201,21 +201,38 @@ exports.getProducts = (req, res, next) => {
         })
 }
 
-exports.postDeleteProduct = (req, res, next) => {
-    const prodId = req.body.productId;
-    // Product.deleteById(prodId)
+// exports.postDeleteProduct = (req, res, next) => {
+//     const prodId = req.body.productId;
+//     // Product.deleteById(prodId)
+//     Product.findById(prodId).then(product => {
+//             if (!product) {
+//                 return next(new Error('product not found!'))
+//             }
+//             fileHelper.deleteFile(product.imageUrl)
+//             return Product.deleteOne({ _id: prodId, userId: req.user._id })
+//         }).then(() => {
+//             console.log('destroyed product')
+//             res.redirect('/admin/products')
+//         })
+//         .catch(err => {
+//             console.log(err)
+//         })
+// }
+
+exports.deleteProduct = (req, res, next) => {
+    const prodId = req.params.productId;
     Product.findById(prodId).then(product => {
             if (!product) {
                 return next(new Error('product not found!'))
             }
             fileHelper.deleteFile(product.imageUrl)
-            return Product.deleteOne({ _id: prodId, userId: req.user_id })
+            return Product.deleteOne({ _id: prodId, userId: req.user._id })
         }).then(() => {
             console.log('destroyed product')
-            res.redirect('/admin/products')
+            res.status(200).json({ message: 'Success!' })
         })
         .catch(err => {
-            console.log(err)
+            res.status(500).json({ message: 'Deleting product failed!' })
         })
 }
 
