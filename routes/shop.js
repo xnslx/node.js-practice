@@ -17,14 +17,18 @@ router.get('/cart', isAuth, shopController.getCart)
 
 router.post('/cart', isAuth, shopController.postCart)
 
-router.post('/cart-delete-item', isAuth, shopController.postCartDeleteProduct)
+router.post('/cart-delete-item', isAuth, shopController.postCartDeleteProduct);
 
-router.post('/create-order', isAuth, shopController.postOrders)
+router.get('/checkout', isAuth, shopController.getCheckOut);
+
+router.get('/checkout/success', shopController.getCheckoutSuccess);
+
+router.get('/checkout/cancel', shopController.getCheckOut)
+
+// router.post('/create-order', isAuth, shopController.postOrders)
 
 router.get('/orders', isAuth, shopController.getOrders)
 
 router.get('/orders/:orderId', isAuth, shopController.getInvoice)
-
-// router.get('/checkout', shopController.getCheckOut)
 
 module.exports = router;
